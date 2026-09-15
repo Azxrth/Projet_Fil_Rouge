@@ -1,8 +1,7 @@
-import Login from './pages/Login';
+import Events from './pages/Events';
 
 function App() {
-  return <Login />;
+  return <Events />;
 }
 
 export default App;
-
