@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [token, setToken] = useState(null);
   const [error, setError] = useState(null);
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,7 +16,7 @@ function Login() {
     try {
       const res = await fetch('http://127.0.0.1:8000/api/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({ email, password }),
       });
 
@@ -22,7 +25,8 @@ function Login() {
       }
 
       const data = await res.json();
-      setToken(data.token);
+      login(data.token, data.user);
+      navigate('/');
     } catch (err) {
       setError(err.message);
     }
@@ -48,7 +52,6 @@ function Login() {
       </form>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      {token && <p>Token reçu : {token}</p>}
     </div>
   );
 }

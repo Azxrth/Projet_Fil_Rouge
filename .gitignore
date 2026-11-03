@@ -25,3 +25,7 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Contexte local pour Claude Code (non versionné)
+/CLAUDE.md
+/docs/journal-technique.md
